@@ -1,11 +1,11 @@
 # Cost My Degree: International Tuition Fee Predictor
 
 <p align="center">
-  <img src="/costmydegree/assets/images/loading.png" width="200" alt="Loading Screen"/>
+  <img src="summative/costmydegree/assets/images/loading.png" width="200" alt="Loading Screen"/>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="/costmydegree/assets/images/quiz.png" width="200" alt="Quiz Screen"/>
+  <img src="summative/costmydegree/assets/images/quiz.png" width="200" alt="Quiz Screen"/>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="/costmydegree/assets/images/result.png" width="200" alt="Result Screen"/>
+  <img src="summative/costmydegree/assets/images/result.png" width="200" alt="Result Screen"/>
 </p>
 
 ## Overview
