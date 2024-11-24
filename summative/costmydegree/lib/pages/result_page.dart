@@ -5,6 +5,17 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Retrieve the prediction results passed as arguments
+    final Map<String, dynamic> predictionResult =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+
+    // Extract values from the prediction result
+    final String country = predictionResult['country'] ?? 'Unknown Country';
+    final String courseType =
+        predictionResult['course_type'] ?? 'Unknown Course';
+    final String predictedFee =
+        predictionResult['predicted_fee']?.toString() ?? 'N/A';
+
     return Scaffold(
         body: Stack(
       alignment: Alignment.center,
@@ -16,25 +27,24 @@ class ResultPage extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             )),
         Positioned(top: 115, child: Image.asset('assets/images/hat.png')),
-        const Positioned(
+        Positioned(
             top: 385,
             child: Text(
-              'M.Sc in Data Science (Germany)',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              'Masters of $courseType ($country)',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             )),
-        const Positioned(
+        Positioned(
             top: 450,
             left: 30,
             child: Row(
               children: [
-                Text("Predicted Tuition Fees:",
+                const Text("Predicted Tuition Fees:",
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('21,900',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900))
+                const SizedBox(width: 10),
+                Text(predictedFee,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w900))
               ],
             )),
         const Positioned(
@@ -46,14 +56,14 @@ class ResultPage extends StatelessWidget {
           bottom: 210,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/quiz');
+              Navigator.pushReplacementNamed(context, '/quiz');
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              backgroundColor: Colors.black, // Button background color
-              foregroundColor: Colors.white, // Button text color
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5), // Rounded edges
+                borderRadius: BorderRadius.circular(5),
               ),
             ),
             child: const Text(
