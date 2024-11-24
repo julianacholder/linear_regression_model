@@ -18,7 +18,7 @@ To make quality education accessible to everyone by providing transparent, data-
 Kaggle `https://www.kaggle.com/datasets/shivampawale/abroad-study-cost-predictor/data`
 
 ## Demo
-
+`https://www.loom.com/share/4a1e07d6a0004e078ad74fe28a6d268e?sid=36e91170-acb8-4c1c-948f-4818d474b75b`
 
 ## Table of Contents
 - [Features](#features)
