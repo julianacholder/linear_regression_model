@@ -8,7 +8,20 @@ import uvicorn
 # Create FastAPI app
 app = FastAPI(
     title="Tuition Fee Prediction API",
-    description="API to predict international university tuition fees",
+     description="""
+    This API predicts university tuition fees based on various factors.
+    
+    ## Input Features
+    * Country: The country of the university
+    * Course Type: The field of study
+    * University Type: Public or Private institution
+    * Mode of Study: Full-time or Online
+    
+    ## How to use
+    1. Use the POST /predict endpoint
+    2. Provide all required input parameters
+    3. Get the predicted tuition fee in USD
+    """,
     version="1.0.0"
 )
 
