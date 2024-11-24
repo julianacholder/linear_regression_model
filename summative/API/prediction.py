@@ -64,13 +64,13 @@ class TuitionResponse(BaseModel):
 
 # Load the saved model and preprocessors
 try:
-    with open('best_model.pkl', 'rb') as file:
+    with open('models/best_model.pkl', 'rb') as file:
         model = pickle.load(file)
     
-    with open('scaler.pkl', 'rb') as file:
+    with open('models/scaler.pkl', 'rb') as file:
         scaler = pickle.load(file)
         
-    with open('encoders_and_mappings.pkl', 'rb') as file:
+    with open('models/encoders_and_mappings.pkl', 'rb') as file:
         encoders_and_mappings = pickle.load(file)
         
     le_country_mapping = encoders_and_mappings['le_country_mapping']
@@ -148,4 +148,4 @@ def get_available_options():
     }
 
 if __name__ == "__main__":
-    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("prediction:app", host="0.0.0.0", port=8000, reload=True)
