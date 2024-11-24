@@ -37,11 +37,11 @@ Kaggle `https://www.kaggle.com/datasets/shivampawale/abroad-study-cost-predictor
 ## Data Analysis
 
 ### Correlation Heatmap
-![Correlation Heatmap](images/correlation_heatmap.png)
+![Correlation Heatmap](summative/costmydegree/assets/images/heatmap.png)
 The heatmap reveals relationships between features and tuition fees. University Type shows the strongest correlation (-0.45), indicating private universities tend to have higher fees. Mode of Study shows a moderate negative correlation (-0.21), suggesting online programs generally cost less.
 
 ### Fee Distribution
-![Fee Distribution](images/fees_distribution.png)
+![Fee Distribution](summative/costmydegree/assets/images/histogram.png)
 The histogram shows a bimodal distribution of tuition fees. The first peak (around $2,000-$5,000) represents public universities in countries like Germany and France. The second peak ($30,000-$40,000) represents private universities and institutions in countries like the USA and UK.
 
 

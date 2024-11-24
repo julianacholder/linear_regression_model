@@ -130,10 +130,10 @@ def predict_tuition(request: TuitionRequest):
         # Make prediction
         prediction = model.predict(features_scaled)[0]
 
-        formatted_fee = f"${prediction:,.0f}"
+       
 
         # Return the response
-        return TuitionResponse(predicted_fee=formatted_fee)
+        return TuitionResponse(predicted_fee=float(prediction))
 
     except HTTPException as e:
         raise e
