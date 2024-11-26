@@ -23,11 +23,10 @@ https://www.loom.com/share/4a1e07d6a0004e078ad74fe28a6d268e?sid=36e91170-acb8-4c
 ## Table of Contents
 - [Features](#features)
 - [Data Analysis](#data-analysis)
-- [Model Performance](#model-performance)
 - [API Documentation](#api-documentation)
 - [Mobile Application](#mobile-application)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Contribution](#contributing)
 
 ## Features
 - Predict tuition fees for international students
@@ -65,7 +64,7 @@ POST /predict
   "currency": "USD"
 }
 
-## ⚙️ Installation
+### Installation
 
 Prerequisites
 Flutter SDK: Install Flutter
