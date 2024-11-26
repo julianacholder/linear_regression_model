@@ -16,6 +16,7 @@ To make quality education accessible to everyone by providing transparent, data-
 
 ## Source:
 Kaggle https://www.kaggle.com/datasets/shivampawale/abroad-study-cost-predictor/data
+*Edited dataset by adding different fields for variation and but retained original information
 
 ## Demo
 https://www.loom.com/share/4a1e07d6a0004e078ad74fe28a6d268e?sid=36e91170-acb8-4c1c-948f-4818d474b75b
@@ -24,7 +25,6 @@ https://www.loom.com/share/4a1e07d6a0004e078ad74fe28a6d268e?sid=36e91170-acb8-4c
 - [Features](#features)
 - [Data Analysis](#data-analysis)
 - [API Documentation](#api-documentation)
-- [Mobile Application](#mobile-application)
 - [Installation](#installation)
 - [Contribution](#contributing)
 
@@ -91,7 +91,7 @@ flutter pub get
 flutter run
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
