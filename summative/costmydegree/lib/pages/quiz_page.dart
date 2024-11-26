@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+// Main quiz page widget that handles tuition fee predictions
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
 
@@ -10,28 +11,35 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  // Form key to handle validation
   final _formKey = GlobalKey<FormState>();
 
-  // Controllers for form fields
+  // Text controllers for each input field
   final _countryController = TextEditingController();
   final _universityTypeController = TextEditingController();
   final _courseSpecializationController = TextEditingController();
   final _modeOfStudyController = TextEditingController();
 
+  // Loading state for the submit button
   bool _isLoading = false;
 
+  // Handles form submission and API call
   Future<void> _submitForm() async {
+    // Only proceed if all form fields are valid
     if (_formKey.currentState!.validate()) {
+      // Show loading spinner
       setState(() {
         _isLoading = true;
       });
 
       try {
+        // Make API call to prediction endpoint
         final response = await http.post(
           Uri.parse('https://predict-tuition.onrender.com/predict'),
           headers: {
             'Content-Type': 'application/json',
           },
+          // Convert form data to JSON
           body: jsonEncode({
             'country': _countryController.text,
             'univ_type': _universityTypeController.text,
@@ -40,32 +48,82 @@ class _QuizPageState extends State<QuizPage> {
           }),
         );
 
+        // Handle successful API response
         if (response.statusCode == 200) {
           final result = jsonDecode(response.body);
 
+          // Add additional data to result
           result['country'] = _countryController.text;
           result['course_type'] = _courseSpecializationController.text;
 
+          // Navigate to results page with prediction data
           Navigator.pushNamed(
             context,
             '/result',
             arguments: result,
           );
         } else {
-          print('Response status: ${response.statusCode}');
-          print('Response body: ${response.body}');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('Failed to get prediction. Please try again.')),
+          // Handle API error response
+          String errorMessage;
+          try {
+            // Try to parse error message from JSON response
+            final errorBody = jsonDecode(response.body);
+            errorMessage = errorBody['message'] ??
+                errorBody['error'] ??
+                'Server returned: ${response.body}';
+          } catch (e) {
+            // If JSON parsing fails, use raw response
+            errorMessage = 'Server returned: ${response.body}';
+          }
+
+          // Show error dialog with details
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Error'),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Status Code: ${response.statusCode}'),
+                      const SizedBox(height: 8),
+                      Text(errorMessage),
+                    ],
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text('Close'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              );
+            },
           );
         }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content:
-                  Text('An error occurred. Please check your connection.')),
+        // Handle network or other errors
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Connection Error'),
+              content: SingleChildScrollView(
+                child: Text('Error details:\n${e.toString()}'),
+              ),
+              actions: [
+                TextButton(
+                  child: const Text('Close'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            );
+          },
         );
       } finally {
+        // Hide loading spinner
         setState(() {
           _isLoading = false;
         });
@@ -73,6 +131,7 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
+  // Clean up controllers when widget is disposed
   @override
   void dispose() {
     _countryController.dispose();
@@ -91,28 +150,33 @@ class _QuizPageState extends State<QuizPage> {
           child: Center(
             child: Column(
               children: [
+                // Page title
                 const Text(
                   "Predict Tuition Fees",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 25),
+                // Description text
                 const Text(
                   "Discover and compare tuition fees for some of the most sought-after master's programs across top study destinations!",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 20),
+                // Available countries info
                 const Text(
                   "(Countries Available: USA, UK, Germany, France, Singapore, Canada, Australia)",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 20),
+                // Main form
                 Form(
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Country input field
                       const Text(
                         'Country',
                         style: TextStyle(fontSize: 16),
@@ -138,6 +202,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                       const SizedBox(height: 15),
+                      // University type input field
                       const Text(
                         'University type',
                         style: TextStyle(fontSize: 16),
@@ -163,6 +228,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                       const SizedBox(height: 15),
+                      // Course specialization input field
                       const Text(
                         'Course Specialization',
                         style: TextStyle(fontSize: 16),
@@ -174,7 +240,7 @@ class _QuizPageState extends State<QuizPage> {
                         child: TextFormField(
                           controller: _courseSpecializationController,
                           decoration: InputDecoration(
-                            hintText: 'eg, Business Administartion',
+                            hintText: 'eg, Business Administration',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
@@ -188,6 +254,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       ),
                       const SizedBox(height: 15),
+                      // Mode of study input field
                       const Text(
                         'Mode of study',
                         style: TextStyle(fontSize: 16),
@@ -216,6 +283,7 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                 ),
                 const SizedBox(height: 35),
+                // Submit button with loading state
                 ElevatedButton(
                   onPressed: _isLoading ? null : _submitForm,
                   style: ElevatedButton.styleFrom(
